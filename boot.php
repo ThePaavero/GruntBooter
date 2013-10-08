@@ -13,6 +13,15 @@ $project_name  = $cli->prompt('Enter project name (computer style)', true);
 
 $gb = new GruntBooter\GruntBooter($project_path, $dev_name, $project_name);
 
+$errors = $gb->runPreliminaryChecks();
+
+if( ! empty($errors))
+{
+	$cli->line('Problems!');
+	$cli->line(implode(PHP_EOL, $errors), 2, 'red');
+	exit;
+}
+
 $cli->line('Generating package.json...');
 $gb->generatePackageJson();
 

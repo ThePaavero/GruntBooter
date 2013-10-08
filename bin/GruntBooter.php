@@ -11,7 +11,7 @@ class GruntBooter {
 
 	public function __construct($_project_path, $_dev_name, $_project_name)
 	{
-		$this->project_path  = str_replace('\\', '/', $_project_path);
+		$this->project_path  = str_replace('\\', '/', $_project_path) . '/';
 		$this->dev_name      = $_dev_name;
 		$this->project_title = $_project_name;
 		$this->project_name  = $_project_name;
@@ -21,11 +21,24 @@ class GruntBooter {
 
 	public function runPreliminaryChecks()
 	{
+		$errors = array();
+
+		if( ! is_writable($this->project_path))
+		{
+			$errors[] = 'Project path is not writable or does not exist. Aborting.';
+		}
+
 		if(file_exists($this->project_path . 'package.json'))
 		{
-			// TODO
+			$errors[] = 'package.json file already exists!';
 		}
-		// TODO...
+
+		if(file_exists($this->project_path . 'Gruntfile.js'))
+		{
+			$errors[] = 'Gruntfile.js file already exists!';
+		}
+
+		return $errors;
 	}
 
 	public function generatePackageJson()
