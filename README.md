@@ -14,3 +14,6 @@ Quickly install basic Grunt setup
 ```
 php boot.php
 ```
+
+## Customizing
+Take a look at bin/templates, edit these files to suit your own basic setup.
