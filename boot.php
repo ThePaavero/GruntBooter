@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * GruntBooter command script
+ *
+ * @package GruntBooter
+ * @author Pekka S. <nospam@astudios.org>
+ * @link https://github.com/ThePaavero/GruntBooter
+ * @license MIT
+ */
+
 require 'bin/QuickCLI.php';
 require 'bin/GruntBooter.php';
 

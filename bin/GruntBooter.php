@@ -2,6 +2,14 @@
 
 namespace GruntBooter;
 
+/**
+ * GruntBooter class
+ *
+ * @package GruntBooter
+ * @author Pekka S. <nospam@astudios.org>
+ * @link https://github.com/ThePaavero/GruntBooter
+ * @license MIT
+ */
 class GruntBooter {
 
 	private $project_path;
@@ -9,6 +17,12 @@ class GruntBooter {
 	private $project_name;
 	private $project_title;
 
+	/**
+	 * Cosntructor
+	 * @param string $_project_path e.g. '/var/www/projectx'
+	 * @param string $_dev_name     e.g. 'Charlie Sheen'
+	 * @param string $_project_name e.g. 'project_x'
+	 */
 	public function __construct($_project_path, $_dev_name, $_project_name)
 	{
 		$this->project_path  = str_replace('\\', '/', $_project_path) . '/';
@@ -19,6 +33,10 @@ class GruntBooter {
 		$this->runPreliminaryChecks();
 	}
 
+	/**
+	 * Try to detect basic problems before doing anything
+	 * @return array
+	 */
 	public function runPreliminaryChecks()
 	{
 		$errors = array();
@@ -41,6 +59,10 @@ class GruntBooter {
 		return $errors;
 	}
 
+	/**
+	 * Generate file package.json
+	 * @return null
+	 */
 	public function generatePackageJson()
 	{
 		$template = file_get_contents('bin/templates/package.template.json');
@@ -58,6 +80,10 @@ class GruntBooter {
 		file_put_contents($this->project_path . 'package.json', $parsed);
 	}
 
+	/**
+	 * Generate file Gruntfile.js
+	 * @return null
+	 */
 	public function generateGruntFile()
 	{
 		$template = file_get_contents('bin/templates/Gruntfile.template.js');
@@ -73,12 +99,20 @@ class GruntBooter {
 		file_put_contents($this->project_path . 'Gruntfile.js', $parsed);
 	}
 
+	/**
+	 * Install Grunt locally using npm install
+	 * @return null
+	 */
 	public function installGrunt()
 	{
 		chdir($this->project_path);
 		exec('npm install grunt');
 	}
 
+	/**
+	 * Install Grunt's dependencies using npm install
+	 * @return null
+	 */
 	public function installGruntDependencies()
 	{
 		chdir($this->project_path);
